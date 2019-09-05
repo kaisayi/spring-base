@@ -38,12 +38,14 @@
                 死亡，容器销毁，对象死亡
                 总结，单例对象的生命周期和容器相同
             多例对象
-                出生，
-                活着，
-                死亡，-->
+                出生，当使用对象时，spring框架创建对象
+                活着，一直活着
+                死亡，当对象长时间不用，且长时间不用，由java的垃圾回收机制回收
+                -->
 
     <bean id="accountService" class="fun.youzz.service.Impl.AccountServiceImpl"
-          scope="singleton" init-method="init" destroy-method="destroy"></bean>
+          scope="prototype" init-method="init" destroy-method="destroy"></bean>
+
     <bean id="accountDao" class="fun.youzz.dao.Impl.AccountDaoImpl"></bean>
 
 </beans>
