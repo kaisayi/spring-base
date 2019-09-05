@@ -23,6 +23,7 @@ public class Client {
         // 根据Id获取bean
         IAccountService accountService = (IAccountService) ac.getBean("accountService");
         System.out.println(accountService);
+        accountService.saveAccount();
 
         // 手动关闭容器
         ac.close();

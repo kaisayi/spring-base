@@ -8,7 +8,7 @@ import fun.youzz.service.Impl.AccountServiceImpl;
  */
 public class InstanceFactory {
 
-    public IAccountService getAccountService() {
-        return new AccountServiceImpl();
-    }
+//    public IAccountService getAccountService() {
+//        return new AccountServiceImpl();
+//    }
 }
