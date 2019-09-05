@@ -60,6 +60,49 @@
         <property name="birtyday" ref="now"></property>
     </bean>
 
+<!--
+    复杂类型注入、集合类型注入
+        用于list结构集合注入的标签：
+            list array set
+        用于map结构注入的标签：
+            map props
+-->
+    <bean id="accountService3" class="fun.youzz.service.Impl.AccountServiceImpl3">
+        <property name="myStrs">
+            <array>
+                <value>AAA</value>
+                <value>BBB</value>
+                <value>CC</value>
+                <value>DDD</value>
+            </array>
+        </property>
+
+        <property name="myList">
+            <list>
+                <value>AAA</value>
+                <value>BBB</value>
+                <value>CC</value>
+                <value>DDD</value>
+            </list>
+        </property>
+
+        <property name="myMap">
+            <map>
+                <entry key="test1" value="aaa"></entry>
+                <entry key="test2" value="bbb"></entry>
+            </map>
+        </property>
+        
+        <property name="myProps">
+            <props>
+                <prop key="testc">ccc</prop>
+                <prop key="testd">ddd</prop>
+            </props>
+        </property>
+
+    </bean>
+
+
     <bean id="accountDao" class="fun.youzz.dao.Impl.AccountDaoImpl"></bean>
 
 </beans>
