@@ -19,8 +19,19 @@
 <!--    <bean id="accountService" factory-bean="instanceFactory" factory-method="getAccountService"></bean>-->
 
 <!--    3. 使用静态工厂中的静态方法创建对象，并存入spring容器-->
-    <bean id="accountService" class="fun.youzz.factory.StaticFactory" factory-method="getAccountService"></bean>
+<!--    <bean id="accountService" class="fun.youzz.factory.StaticFactory" factory-method="getAccountService"></bean>-->
 
+
+    <!--    bean 的作用范围-->
+<!--        bean标签的 scope 属性-->
+<!--            作用：用于指定bean的作用范围-->
+<!--            singleton : 单例，默认值-->
+<!--            prototype ： 多例-->
+<!--            request: 作用于web应用的请求范围-->
+<!--            session: 作用于web应用的会话范围-->
+<!--            global-session: 作用于集群环境的会话范围-->
+
+    <bean id="accountService" class="fun.youzz.service.Impl.AccountServiceImpl" scope="prototype"></bean>
     <bean id="accountDao" class="fun.youzz.dao.Impl.AccountDaoImpl"></bean>
 
 </beans>

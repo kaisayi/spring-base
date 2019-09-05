@@ -22,8 +22,8 @@ public class Client {
         ApplicationContext ac = new ClassPathXmlApplicationContext("bean.xml");
         // 根据Id获取bean
         IAccountService accountService = (IAccountService) ac.getBean("accountService");
-        IAccountDao accountDao = ac.getBean("accountDao", IAccountDao.class);
+        IAccountService accountService2 = (IAccountService) ac.getBean("accountService");
         System.out.println(accountService);
-        System.out.println(accountDao);
+        System.out.println(accountService2);
     }
 }
