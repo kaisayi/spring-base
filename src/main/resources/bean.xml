@@ -5,7 +5,21 @@
          http://www.springframework.org/schema/beans/spring-beans.xsd">
 
     <!-- 把对象的创建交给spring来管理 -->
-    <bean id="accountService" class="fun.youzz.service.Impl.AccountServiceImpl"></bean>
+<!--    Spring 对 bean 的管理细节-->
+
+<!--    1. 适用默认的构造函数创建-->
+<!--    在 spring的配置文件中适用bean标签，配以id和class属性之后，并没有其他属性和标签时-->
+<!--    采用此方法，如果此时类中没有默认的构造函数，则对象无法创建-->
+
+<!--    <bean id="accountService" class="fun.youzz.service.Impl.AccountServiceImpl"></bean>-->
+
+<!--    2. 使用普通工厂中的方法创建对象（使用某个类中的方法创建对象，并存入spring容器）-->
+
+<!--    <bean id="instanceFactory" class="fun.youzz.factory.InstanceFactory"></bean>-->
+<!--    <bean id="accountService" factory-bean="instanceFactory" factory-method="getAccountService"></bean>-->
+
+<!--    3. 使用静态工厂中的静态方法创建对象，并存入spring容器-->
+    <bean id="accountService" class="fun.youzz.factory.StaticFactory" factory-method="getAccountService"></bean>
 
     <bean id="accountDao" class="fun.youzz.dao.Impl.AccountDaoImpl"></bean>
 

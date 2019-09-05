@@ -8,7 +8,6 @@ import fun.youzz.service.IAccountService;
  */
 public class AccountServiceImpl implements IAccountService {
 
-    private IAccountDao accountDao;
 
     public AccountServiceImpl() {
         System.out.println("AccountServiceImpl被创建了");
@@ -16,6 +15,6 @@ public class AccountServiceImpl implements IAccountService {
 
 
     public void saveAccount() {
-        accountDao.saveAccount();
+        System.out.println("saveAccount 方法执行");;
     }
 }
