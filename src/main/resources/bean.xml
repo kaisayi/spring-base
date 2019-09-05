@@ -45,6 +45,21 @@
 <!--    配置一个日期对象 -->
     <bean id="now" class="java.util.Date"></bean>
 
+
+<!--    2. set方法注入
+            标签：property
+            标签的属性
+                name: 给构造函数中指定的名称的参数赋值
+                value: 用于提供基本类型的数据
+                ref: 用于指定其他的bean类型数据，是指在spring的IOC核心容器中出现过得bean对象
+            常用
+-->
+    <bean id="accountService2" class="fun.youzz.service.Impl.AccountServiceImpl2">
+        <property name="name" value="test"></property>
+        <property name="age" value="20"></property>
+        <property name="birtyday" ref="now"></property>
+    </bean>
+
     <bean id="accountDao" class="fun.youzz.dao.Impl.AccountDaoImpl"></bean>
 
 </beans>

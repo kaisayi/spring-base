@@ -21,7 +21,7 @@ public class Client {
         // 获取核心容器
         ClassPathXmlApplicationContext ac = new ClassPathXmlApplicationContext("bean.xml");
         // 根据Id获取bean
-        IAccountService accountService = (IAccountService) ac.getBean("accountService");
+        IAccountService accountService = (IAccountService) ac.getBean("accountService2");
         System.out.println(accountService);
         accountService.saveAccount();
 
