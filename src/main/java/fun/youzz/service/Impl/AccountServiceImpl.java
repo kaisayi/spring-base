@@ -3,16 +3,26 @@ package fun.youzz.service.Impl;
 import fun.youzz.dao.IAccountDao;
 import fun.youzz.domain.Account;
 import fun.youzz.service.IAccountService;
+import fun.youzz.utils.TransactionManager;
 
+import java.util.Collections;
 import java.util.List;
 
 /**
  * 账户的业务层
  * <bean id="accountService" class="fun.youzz.service.Impl.AccountServiceImpl"></bean>
+ *
+ * 事务控制：全都在业务层
  */
 public class AccountServiceImpl implements IAccountService {
 
     private IAccountDao accountDao;
+
+    private TransactionManager txManager;
+
+    public void setTxManager(TransactionManager txManager) {
+        this.txManager = txManager;
+    }
 
     public void setAccountDao(IAccountDao accountDao) {
         this.accountDao = accountDao;
@@ -20,43 +30,133 @@ public class AccountServiceImpl implements IAccountService {
 
     @Override
     public List<Account> findAllAccount() {
-        return accountDao.findAllAccount();
+        try {
+            // 1. 开启事务
+            txManager.beginTranssaction();
+            // 2. 执行操作
+            List<Account> accounts = accountDao.findAllAccount();
+            // 3. 提交事务
+            txManager.commit();
+            // 4. 返回结果
+            return accounts;
+        } catch (Exception e) {
+            // 5. 回滚操作
+            txManager.rollback();
+            throw new RuntimeException(e);
+        } finally {
+            // 6. 释放连接
+            txManager.release();
+        }
     }
 
     @Override
     public Account findAccountById(Integer accountId) {
-        return accountDao.findAccountById(accountId);
+        try {
+            // 1. 开启事务
+            txManager.beginTranssaction();
+            // 2. 执行操作
+            Account account = accountDao.findAccountById(accountId);
+            // 3. 提交事务
+            txManager.commit();
+            // 4. 返回结果
+            return account;
+        } catch (Exception e) {
+            // 5. 回滚操作
+            txManager.rollback();
+            throw new RuntimeException(e);
+        } finally {
+            // 6. 释放连接
+            txManager.release();
+        }
     }
 
     @Override
     public void saveAccount(Account account) {
-        accountDao.saveAccount(account);
+        try {
+            // 1. 开启事务
+            txManager.beginTranssaction();
+            // 2. 执行操作
+            accountDao.saveAccount(account);
+            // 3. 提交事务
+            txManager.commit();
+            // 4. 返回结果
+        } catch (Exception e) {
+            // 5. 回滚操作
+            txManager.rollback();
+            throw new RuntimeException(e);
+        } finally {
+            // 6. 释放连接
+            txManager.release();
+        }
     }
 
     @Override
     public void updateAccount(Account account) {
-        accountDao.updateAccount(account);
+        try {
+            // 1. 开启事务
+            txManager.beginTranssaction();
+            // 2. 执行操作
+            accountDao.updateAccount(account);
+            // 3. 提交事务
+            txManager.commit();
+        } catch (Exception e) {
+            // 5. 回滚操作
+            txManager.rollback();
+            throw new RuntimeException(e);
+        } finally {
+            // 6. 释放连接
+            txManager.release();
+        }
     }
 
     @Override
     public void deleteAccount(Integer accountId) {
-        accountDao.deleteAccount(accountId);
+        try {
+            // 1. 开启事务
+            txManager.beginTranssaction();
+            // 2. 执行操作
+            accountDao.deleteAccount(accountId);
+            // 3. 提交事务
+            txManager.commit();
+        } catch (Exception e) {
+            // 5. 回滚操作
+            txManager.rollback();
+            throw new RuntimeException(e);
+        } finally {
+            // 6. 释放连接
+            txManager.release();
+        }
     }
 
     @Override
     public void transfer(String source, String target, Float money) {
-        // 1. 根据名称查询转出账户
-        Account sourceAc = accountDao.findAccountByName(source);
-        // 2. 根据名称查询转入账户
-        Account targetAc = accountDao.findAccountByName(target);
-        // 3. 转出账户减钱
-        sourceAc.setMoney(sourceAc.getMoney() - money);
-        // 4. 转入账户加钱
-        targetAc.setMoney(targetAc.getMoney() + money);
-        // 5. 更新转出账户
-        accountDao.updateAccount(sourceAc);
-        // 6. 更新转入账户
-        accountDao.updateAccount(targetAc);
+        try {
+            // 1. 开启事务
+            txManager.beginTranssaction();
+            // 2. 执行操作
+            // 2.1. 根据名称查询转出账户
+            Account sourceAc = accountDao.findAccountByName(source);
+            // 2.2. 根据名称查询转入账户
+            Account targetAc = accountDao.findAccountByName(target);
+            // 2.3. 转出账户减钱
+            sourceAc.setMoney(sourceAc.getMoney() - money);
+            // 2.4. 转入账户加钱
+            targetAc.setMoney(targetAc.getMoney() + money);
+            // 2.5. 更新转出账户
+            accountDao.updateAccount(sourceAc);
 
+            System.out.println(1 / 0);
+            // 2.6. 更新转入账户
+            accountDao.updateAccount(targetAc);
+            // 3. 提交事务
+            txManager.commit();
+        } catch (Exception e) {
+            // 5. 回滚操作
+            txManager.rollback();
+            e.printStackTrace();
+        } finally {
+            // 6. 释放连接
+            txManager.release();
+        }
     }
 }

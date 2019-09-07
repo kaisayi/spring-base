@@ -8,19 +8,22 @@
 <!--    配置Service
 -->
     <bean id="accountService" class="fun.youzz.service.Impl.AccountServiceImpl">
+        <!-- 注入dao -->
         <property name="accountDao" ref="accountDao"></property>
+        <!-- 注入事务管理器 -->
+        <property name="txManager" ref="txManager"></property>
     </bean>
 
 <!--    配置Dao
 -->
     <bean id="accountDao" class="fun.youzz.dao.Impl.AccountDaoImpl">
         <property name="runner" ref="runner"></property>
+        <property name="connectionUtils" ref="connectionUtils"></property>
     </bean>
 
 <!--    配置QueryRunner
 -->
     <bean id="runner" class="org.apache.commons.dbutils.QueryRunner" scope="prototype">
-        <constructor-arg name="ds" ref="dataSource"></constructor-arg>
     </bean>
 
 <!--    配置数据源
@@ -32,7 +35,19 @@
         <property name="password" value="124607"></property>
     </bean>
 
+<!--    配置ConnectionUtis
+-->
+    <bean id="connectionUtils" class="fun.youzz.utils.ConnectionUtils">
+        <!-- 注入数据源 -->
+        <property name="dataSource" ref="dataSource"></property>
+    </bean>
 
+<!--    配置事务管理器
+-->
+    <bean id="txManager" class="fun.youzz.utils.TransactionManager">
+        <!-- 注入ConnectionUtils -->
+        <property name="connectionUtils" ref="connectionUtils"></property>
+    </bean>
 
 
 </beans>
