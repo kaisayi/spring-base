@@ -3,9 +3,9 @@ package fun.youzz.dao.Impl;
 import fun.youzz.dao.IAccountDao;
 import org.springframework.stereotype.Repository;
 
-@Repository("accountDao1")
-public class AccountDaoImpl implements IAccountDao {
+@Repository("accountDao2")
+public class AccountDaoImpl2 implements IAccountDao {
     public void saveAccount() {
-        System.out.println("save account111111111111");
+        System.out.println("save account 222222222");
     }
 }

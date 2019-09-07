@@ -23,9 +23,10 @@ public class Client {
         // 根据Id获取bean
         IAccountService accountService = (IAccountService) ac.getBean("accountService");
         System.out.println(accountService);
-
-        IAccountDao dao = ac.getBean("accountDao", IAccountDao.class);
-        System.out.println(dao);
+//
+//        IAccountDao dao = ac.getBean("accountDao", IAccountDao.class);
+//        System.out.println(dao);
+        accountService.saveAccount();
 
     }
 }

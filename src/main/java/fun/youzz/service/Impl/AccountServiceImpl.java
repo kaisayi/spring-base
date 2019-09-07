@@ -2,8 +2,11 @@ package fun.youzz.service.Impl;
 
 import fun.youzz.dao.IAccountDao;
 import fun.youzz.service.IAccountService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
+import javax.annotation.Resource;
 import java.util.Date;
 
 /**
@@ -22,10 +25,29 @@ import java.util.Date;
  * 以上三个注解的作用和属性与Component一样
  * 这三个注解是spring框架为我们提供明确的三层使用的注解，使三层对象更为清晰
  *
- *
- *
  * 用于注入数据的
  *      作用和在xml配置文件中的bean标签内写一个<property><property/>一样
+ * @Autowired
+ *   作用：
+ *      自动按照类型注入，只有容器中有唯一的一个bean对象类型和要注入的变量类型一致，就可以注入成功
+ *      如果Ioc容器中有多个类型对象, 需要指定名称或者配合 Qualifier 使用
+ *   出现位置：可以是变量上，也可以是方法上
+ *   细节：在使用注解时，set方法就不是必须的
+ *
+ * @Qualifier:
+ *    作用： 在按照类型注入的基础上再按照名称注入，在给类成员注入时不能单独使用
+ *    属性： value： 指定注入bean的id
+ * @Resource：
+ *     作用：直接按照bean的id注入，可以单独使用
+ *     属性： name：指定注入bean的id
+ *
+ * 以上三种注解 只能注入其他bean类型的数据, 而基本类型和String类型无法使用上述注解
+ * 另外，集合类型的注入只能通过xml实现
+ *
+ * @Value:
+ *     作用：用于注入基本类型和String类型
+ *     属性：value 用于指定数据的值，可以使用spring中的SpEL：${表达式}
+ *
  * 用于改变作用范围
  *      作用集合在bean标签中的scope属性功能一样
  *  生命周期相关
@@ -35,9 +57,18 @@ import java.util.Date;
 @Component("accountService")
 public class AccountServiceImpl implements IAccountService {
 
+//    @Autowired
+//    private IAccountDao accountDao2;
+
+//    @Autowired
+//    @Qualifier("accountDao2")
+//    private IAccountDao accountDao;
+
+    @Resource(name = "accountDao2")
     private IAccountDao accountDao;
 
     public void saveAccount() {
-        System.out.println("saveAccount 方法执行 /// ");
+//        accountDao2.saveAccount();
+        accountDao.saveAccount();
     }
 }
