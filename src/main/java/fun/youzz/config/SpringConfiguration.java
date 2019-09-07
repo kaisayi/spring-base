@@ -29,12 +29,17 @@ import java.beans.PropertyVetoException;
  * @Import
  *    作用：用于导入其他的配置类
  *    属性：value： 用于指定其他配置类的字节码，使用Import注解，当前配置类为主配置类
+ *
+ * @PropertySource
+ *     作用：指定properties文件的位置
+ *     属性：
+ *
  */
 
 //@Configuration
 @ComponentScan(basePackages = "fun.youzz")
 @Import(JdbcConfig.class)
+@PropertySource("classpath:jdbcConfig.properties")
 public class SpringConfiguration {
-
 
 }
