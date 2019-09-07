@@ -2,40 +2,33 @@ package fun.youzz.service.Impl;
 
 import fun.youzz.dao.IAccountDao;
 import fun.youzz.service.IAccountService;
+import org.springframework.stereotype.Component;
 
 import java.util.Date;
 
 /**
  * 账户的业务层
+ *  <bean id="accountService" class="fun.youzz.service.Impl.AccountServiceImpl"></bean>
+ *
+ * 用于创建对象的
+ *      作用和在xml配置文件中编写一个<bean><bean/>一样
+ * @Component
+ *  作用：把当前对象存入spring容器
+ *  属性：value 指定bean的id， 不写时，默认当前类名的首字母改小写
+ * 用于注入数据的
+ *      作用和在xml配置文件中的bean标签内写一个<property><property/>一样
+ * 用于改变作用范围
+ *      作用集合在bean标签中的scope属性功能一样
+ *  生命周期相关
+ *      作用和在bean标签内使用的init-method & destroy-method 一样
+ *
  */
+@Component("accountService")
 public class AccountServiceImpl implements IAccountService {
 
-    // 如果经常变化的数据，并不适用于注入的方式。
-    private String name;
-    private Integer age;
-    private Date birtyday;
-
-
-//    public AccountServiceImpl() {
-//        System.out.println("AccountServiceImpl被创建了");
-//    }
-
-    public AccountServiceImpl(String name, Integer age, Date birtyday) {
-        this.name = name;
-        this.age = age;
-        this.birtyday = birtyday;
-    }
-
+    private IAccountDao accountDao;
 
     public void saveAccount() {
-        System.out.println("saveAccount 方法执行 /// " + name + " " + age + " " + birtyday);
-    }
-
-    public void init() {
-        System.out.println("对象初始化");
-    }
-
-    public void destroy() {
-        System.out.println("对象销毁了");
+        System.out.println("saveAccount 方法执行 /// ");
     }
 }
