@@ -26,7 +26,5 @@ public class Client {
 //
 //        IAccountDao dao = ac.getBean("accountDao", IAccountDao.class);
 //        System.out.println(dao);
-        accountService.saveAccount();
-
     }
 }

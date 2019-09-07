@@ -1,15 +1,38 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xmlns:context="http://www.springframework.org/schema/context"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans
-        http://www.springframework.org/schema/beans/spring-beans.xsd
-        http://www.springframework.org/schema/context
-        http://www.springframework.org/schema/context/spring-context.xsd">
+       xsi:schemaLocation="
+        http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-
-<!--    告知spring要扫描的包
+<!--    配置Service
 -->
-    <context:component-scan base-package="fun.youzz"></context:component-scan>
+    <bean id="accountService" class="fun.youzz.service.Impl.AccountServiceImpl">
+        <property name="accountDao" ref="accountDao"></property>
+    </bean>
+
+<!--    配置Dao
+-->
+    <bean id="accountDao" class="fun.youzz.dao.Impl.AccountDaoImpl">
+        <property name="runner" ref="runner"></property>
+    </bean>
+
+<!--    配置QueryRunner
+-->
+    <bean id="runner" class="org.apache.commons.dbutils.QueryRunner" scope="prototype">
+        <constructor-arg name="ds" ref="dataSource"></constructor-arg>
+    </bean>
+
+<!--    配置数据源
+-->
+    <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
+        <property name="driverClass" value="com.mysql.jdbc.Driver"></property>
+        <property name="jdbcUrl" value="jdbc:mysql://localhost:3306/springdb"></property>
+        <property name="user" value="root"></property>
+        <property name="password" value="124607"></property>
+    </bean>
+
+
+
 
 </beans>
