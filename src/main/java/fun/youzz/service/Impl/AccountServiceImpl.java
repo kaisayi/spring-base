@@ -15,6 +15,15 @@ import java.util.Date;
  * @Component
  *  作用：把当前对象存入spring容器
  *  属性：value 指定bean的id， 不写时，默认当前类名的首字母改小写
+ *
+ * @Controller ： 表现层
+ * @Service ： 业务层
+ * @Repository ： 持久层
+ * 以上三个注解的作用和属性与Component一样
+ * 这三个注解是spring框架为我们提供明确的三层使用的注解，使三层对象更为清晰
+ *
+ *
+ *
  * 用于注入数据的
  *      作用和在xml配置文件中的bean标签内写一个<property><property/>一样
  * 用于改变作用范围
