@@ -4,8 +4,11 @@ import fun.youzz.dao.IAccountDao;
 import fun.youzz.service.IAccountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
+import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
 import javax.annotation.Resource;
 import java.util.Date;
 
@@ -50,11 +53,20 @@ import java.util.Date;
  *
  * 用于改变作用范围
  *      作用集合在bean标签中的scope属性功能一样
+ * @Scope
+ *      作用：指定bean的作用范围
+ *      属性： value => singleton, prototype
+ *
  *  生命周期相关
  *      作用和在bean标签内使用的init-method & destroy-method 一样
+ * @PreDestroy
+ *      作用：指定销毁方法
+ * @PostConstruct
+ *      作用：指定初始化方法
  *
  */
 @Component("accountService")
+@Scope("singleton")
 public class AccountServiceImpl implements IAccountService {
 
 //    @Autowired
@@ -71,4 +83,15 @@ public class AccountServiceImpl implements IAccountService {
 //        accountDao2.saveAccount();
         accountDao.saveAccount();
     }
+
+    @PostConstruct
+    public void init() {
+        System.out.println("初始化方法执行");
+    }
+
+    @PreDestroy
+    public void destroy() {
+        System.out.println("销毁方法执行");
+    }
+
 }
