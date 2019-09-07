@@ -44,7 +44,7 @@ public class AccountServiceTest {
         IAccountService service = ac.getBean("accountService", IAccountService.class);
         // 执行方法
         Account account = new Account();
-        account.setName("youzz");
+        account.setName("youzz23");
         account.setMoney(1230.3f);
         service.saveAccount(account);
     }

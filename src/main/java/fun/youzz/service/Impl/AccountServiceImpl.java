@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
@@ -18,14 +19,11 @@ import java.util.List;
  * 账户的业务层
  *  <bean id="accountService" class="fun.youzz.service.Impl.AccountServiceImpl"></bean>
  */
-@Component("accountService")
+@Service("accountService")
 public class AccountServiceImpl implements IAccountService {
 
+    @Autowired
     private IAccountDao accountDao;
-
-    public void setAccountDao(IAccountDao accountDao) {
-        this.accountDao = accountDao;
-    }
 
     @Override
     public List<Account> findAllAccount() {
