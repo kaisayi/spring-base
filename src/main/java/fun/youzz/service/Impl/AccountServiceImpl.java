@@ -3,22 +3,13 @@ package fun.youzz.service.Impl;
 import fun.youzz.dao.IAccountDao;
 import fun.youzz.domain.Account;
 import fun.youzz.service.IAccountService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.context.annotation.Scope;
-import org.springframework.stereotype.Component;
 
-import javax.annotation.PostConstruct;
-import javax.annotation.PreDestroy;
-import javax.annotation.Resource;
-import java.util.Date;
 import java.util.List;
 
 /**
  * 账户的业务层
- *  <bean id="accountService" class="fun.youzz.service.Impl.AccountServiceImpl"></bean>
+ * <bean id="accountService" class="fun.youzz.service.Impl.AccountServiceImpl"></bean>
  */
-@Component("accountService")
 public class AccountServiceImpl implements IAccountService {
 
     private IAccountDao accountDao;
