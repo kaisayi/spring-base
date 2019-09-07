@@ -15,6 +15,7 @@ import java.beans.PropertyVetoException;
  * spring中的新注解
  * @Configuration
  *    作用：表明当前类为一个配置类
+ *    细节：当配置类作为AnnotationConfigurationContext对象创建的参数时，该注解可以不写
  *
  * @ComponentScan
  *    作用：用于通过注解指定spring创建容器时要创建的包
@@ -32,30 +33,6 @@ import java.beans.PropertyVetoException;
 @Configuration
 @ComponentScan(basePackages = "fun.youzz")
 public class SpringConfiguration {
-    /**
-     * 创建一个QueryRunner对象
-     * @param dataSource
-     * @return
-     */
-    @Bean(name = "runner")
-    @Scope("prototype")
-    public QueryRunner createQueryRunner(DataSource dataSource) {
-        return new QueryRunner(dataSource);
-    }
 
-    /**
-     * 创建数据源对象
-     * @return
-     * @throws PropertyVetoException
-     */
-    @Bean(name = "dataSource")
-    public DataSource createDataSource() throws PropertyVetoException {
-        ComboPooledDataSource ds = new ComboPooledDataSource();
-        ds.setDriverClass("com.mysql.jdbc.Driver");
-        ds.setJdbcUrl("jdbc:mysql://localhost:3306/springdb");
-        ds.setUser("root");
-        ds.setPassword("124607");
-        return ds;
-    }
 
 }

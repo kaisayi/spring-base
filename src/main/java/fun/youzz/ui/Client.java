@@ -19,10 +19,10 @@ public class Client {
      */
     public static void main(String[] args) {
         // 获取核心容器
-        ApplicationContext ac = new ClassPathXmlApplicationContext("bean.xml");
+//        ApplicationContext ac = new ClassPathXmlApplicationContext("bean.xml");
         // 根据Id获取bean
-        IAccountService accountService = (IAccountService) ac.getBean("accountService");
-        System.out.println(accountService);
+//        IAccountService accountService = (IAccountService) ac.getBean("accountService");
+//        System.out.println(accountService);
 //
 //        IAccountDao dao = ac.getBean("accountDao", IAccountDao.class);
 //        System.out.println(dao);
