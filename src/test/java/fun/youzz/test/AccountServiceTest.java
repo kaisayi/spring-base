@@ -26,4 +26,9 @@ public class AccountServiceTest {
         List<Account> accounts = as.findAllAccount();
         accounts.forEach(System.out::println);
     }
+
+    @Test
+    public void testTransfer() {
+        as.transfer("aaa", "bbb", 100f);
+    }
 }

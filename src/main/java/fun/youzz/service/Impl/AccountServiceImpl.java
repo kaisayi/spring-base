@@ -42,4 +42,21 @@ public class AccountServiceImpl implements IAccountService {
     public void deleteAccount(Integer accountId) {
         accountDao.deleteAccount(accountId);
     }
+
+    @Override
+    public void transfer(String source, String target, Float money) {
+        // 1. 根据名称查询转出账户
+        Account sourceAc = accountDao.findAccountByName(source);
+        // 2. 根据名称查询转入账户
+        Account targetAc = accountDao.findAccountByName(target);
+        // 3. 转出账户减钱
+        sourceAc.setMoney(sourceAc.getMoney() - money);
+        // 4. 转入账户加钱
+        targetAc.setMoney(targetAc.getMoney() + money);
+        // 5. 更新转出账户
+        accountDao.updateAccount(sourceAc);
+        // 6. 更新转入账户
+        accountDao.updateAccount(targetAc);
+
+    }
 }

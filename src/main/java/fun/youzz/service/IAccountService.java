@@ -35,4 +35,12 @@ public interface IAccountService {
      */
     void deleteAccount(Integer accountId);
 
+    /**
+     * 转账
+     * @param source
+     * @param target
+     * @param money
+     */
+    void transfer(String source, String target, Float money);
+
 }

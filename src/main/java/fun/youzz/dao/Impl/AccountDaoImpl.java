@@ -8,6 +8,7 @@ import org.apache.commons.dbutils.handlers.BeanListHandler;
 
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Objects;
 
 public class AccountDaoImpl implements IAccountDao {
 
@@ -57,6 +58,22 @@ public class AccountDaoImpl implements IAccountDao {
     public void deleteAccount(Integer accountId) {
         try {
             runner.update("delete from account where id=?", accountId);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
+    public Account findAccountByName(String accountName) {
+        try {
+            List<Account> accounts = runner.query("select * from account where name = ?", new BeanListHandler<>(Account.class), accountName);
+            if (Objects.isNull(accounts) || accounts.size() == 0) {
+                return null;
+            }
+            if (accounts.size() > 1) {
+                throw new RuntimeException("结果集不唯一");
+            }
+            return accounts.get(0);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
