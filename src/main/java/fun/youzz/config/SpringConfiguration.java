@@ -2,10 +2,7 @@ package fun.youzz.config;
 
 import com.mchange.v2.c3p0.ComboPooledDataSource;
 import org.apache.commons.dbutils.QueryRunner;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Scope;
+import org.springframework.context.annotation.*;
 
 import javax.sql.DataSource;
 import java.beans.PropertyVetoException;
@@ -28,10 +25,15 @@ import java.beans.PropertyVetoException;
  *         name: 用于指定bean的id，默认为方法名
  *    细节：
  *        使用注解配置方法时，如果方法有参数，spring框架会去容器中查找有没有可用的bean对象
+ *
+ * @Import
+ *    作用：用于导入其他的配置类
+ *    属性：value： 用于指定其他配置类的字节码，使用Import注解，当前配置类为主配置类
  */
 
-@Configuration
+//@Configuration
 @ComponentScan(basePackages = "fun.youzz")
+@Import(JdbcConfig.class)
 public class SpringConfiguration {
 
 

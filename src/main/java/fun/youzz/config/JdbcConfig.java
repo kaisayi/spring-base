@@ -12,7 +12,7 @@ import java.beans.PropertyVetoException;
 /**
  * 和spring连接数据库的配置类
  */
-@Configuration
+//@Configuration
 public class JdbcConfig {
     /**
      * 创建一个QueryRunner对象
