@@ -19,7 +19,6 @@ import java.util.List;
 public class AccountServiceTest {
 
     @Autowired
-    @Qualifier("proxyAccountService")
     private IAccountService as;
 
     @Test

@@ -1,45 +1,47 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xsi:schemaLocation="
-        http://www.springframework.org/schema/beans
-        http://www.springframework.org/schema/beans/spring-beans.xsd">
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        https://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/aop
+        https://www.springframework.org/schema/aop/spring-aop.xsd">
 
-<!--    配置代理的service
--->
-    <bean id="proxyAccountService" factory-bean="beanFactory" factory-method="getAccountService"></bean>
-
-
-<!--    配置beanFactory
--->
-    <bean id="beanFactory" class="fun.youzz.factory.BeanFactory">
-        <property name="accountService" ref="accountService"></property>
-        <!-- 注入事务管理器 -->
+    <!-- 配置serviceAOP -->
+    <bean id="serviceAOP" class="fun.youzz.aop.ServiceAOP">
         <property name="txManager" ref="txManager"></property>
     </bean>
 
+    <!-- 配置spring:aop -->
+    <aop:config>
+        <aop:aspect id="serviceTx" ref="serviceAOP">
+            <aop:pointcut id="pt1" expression="execution(* fun.youzz.service.Impl.*.*(..))"/>
+            <aop:around method="methodProxyClient" pointcut-ref="pt1"></aop:around>
+        </aop:aspect>
+    </aop:config>
 
-<!--    配置Service
--->
+
+    <!--    配置Service
+    -->
     <bean id="accountService" class="fun.youzz.service.Impl.AccountServiceImpl">
         <!-- 注入dao -->
         <property name="accountDao" ref="accountDao"></property>
     </bean>
 
-<!--    配置Dao
--->
+    <!--    配置Dao
+    -->
     <bean id="accountDao" class="fun.youzz.dao.Impl.AccountDaoImpl">
         <property name="runner" ref="runner"></property>
         <property name="connectionUtils" ref="connectionUtils"></property>
     </bean>
 
-<!--    配置QueryRunner
--->
+    <!--    配置QueryRunner
+    -->
     <bean id="runner" class="org.apache.commons.dbutils.QueryRunner" scope="prototype">
     </bean>
 
-<!--    配置数据源
--->
+    <!--    配置数据源
+    -->
     <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
         <property name="driverClass" value="com.mysql.jdbc.Driver"></property>
         <property name="jdbcUrl" value="jdbc:mysql://localhost:3306/springdb"></property>
@@ -47,15 +49,15 @@
         <property name="password" value="124607"></property>
     </bean>
 
-<!--    配置ConnectionUtis
--->
+    <!--    配置ConnectionUtis
+    -->
     <bean id="connectionUtils" class="fun.youzz.utils.ConnectionUtils">
         <!-- 注入数据源 -->
         <property name="dataSource" ref="dataSource"></property>
     </bean>
 
-<!--    配置事务管理器
--->
+    <!--    配置事务管理器
+    -->
     <bean id="txManager" class="fun.youzz.utils.TransactionManager">
         <!-- 注入ConnectionUtils -->
         <property name="connectionUtils" ref="connectionUtils"></property>
