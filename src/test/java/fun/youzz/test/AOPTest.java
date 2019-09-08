@@ -16,8 +16,6 @@ public class AOPTest {
         IAccountService accountService = (IAccountService) ac.getBean("accountService");
         // 执行方法
         accountService.saveAccount();
-        accountService.deleteAccount();
-        accountService.updateAccount(1);
     }
 
 

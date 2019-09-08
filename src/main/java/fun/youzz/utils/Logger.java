@@ -6,9 +6,30 @@ package fun.youzz.utils;
 public class Logger {
 
     /**
-     * 计划在切入点方法执行之前执行；切入点方法：业务层方法
+     * 前置通知
      */
-    public void printLog() {
-        System.out.println("printLog 开始记录日志");
+    public void beforePrintLog() {
+        System.out.println("前置通知 beforePrintLog 开始记录日志");
+    }
+
+    /**
+     * 后置通知
+     */
+    public void afterReturningPrintLog() {
+        System.out.println("后置通知 afterReturningPrintLog 开始记录日志");
+    }
+
+    /**
+     * 异常通知
+     */
+    public void afterThrowingPrintLog() {
+        System.out.println("异常通知 afterThrowingPrintLog 开始记录日志");
+    }
+
+    /**
+     * 最终通知
+     */
+    public void afterPrintLog() {
+        System.out.println("最终通知 afterPrintLog 开始记录日志");
     }
 }
