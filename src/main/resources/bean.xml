@@ -41,14 +41,19 @@
     <aop:config>
         <!-- 配置切面 -->
         <aop:aspect id="logAdvice" ref="logger">
+            <!-- 配置切入点表达式
+                写在aspect里面只能在此内部使用，写在外面则所有的aspect都可以使用
+             -->
+            <aop:pointcut id="pt1" expression="execution(* fun.youzz.service.impl.*.*(..))"/>
+
             <!-- 配置前置通知 -->
-            <aop:before method="beforePrintLog" pointcut="execution(* fun.youzz.service.impl.*.*(..))"></aop:before>
+            <aop:before method="beforePrintLog" pointcut-ref="pt1"></aop:before>
             <!-- 配置后置通知 -->
-            <aop:after-returning method="afterReturningPrintLog" pointcut="execution(* fun.youzz.service.impl.*.*(..))"></aop:after-returning>
+            <aop:after-returning method="afterReturningPrintLog" pointcut-ref="pt1"></aop:after-returning>
             <!-- 配置异常通知 -->
-            <aop:after-throwing method="afterThrowingPrintLog" pointcut="execution(* fun.youzz.service.impl.*.*(..))"></aop:after-throwing>
+            <aop:after-throwing method="afterThrowingPrintLog" pointcut-ref="pt1"></aop:after-throwing>
             <!-- 配置最终通知 -->
-            <aop:after method="afterPrintLog" pointcut="execution(* fun.youzz.service.impl.*.*(..))"></aop:after>
+            <aop:after method="afterPrintLog" pointcut-ref="pt1"></aop:after>
         </aop:aspect>
 
     </aop:config>
