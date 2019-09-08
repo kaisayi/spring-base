@@ -4,9 +4,21 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans
          http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-    <!-- 把对象的创建交给spring来管理 -->
-    <bean id="accountService" class="fun.youzz.service.Impl.AccountServiceImpl"></bean>
+    <!-- 配置业务层 -->
+    <bean id="accountService" class="fun.youzz.service.impl.AccountServiceImpl">
+        <property name="accountDao" ref="accountDao"></property>
+    </bean>
 
-    <bean id="accountDao" class="fun.youzz.dao.Impl.AccountDaoImpl"></bean>
+    <bean id="accountDao" class="fun.youzz.dao.Impl.AccountDaoImpl">
+        <property name="dataSource" ref="dataSource"></property>
+    </bean>
+
+    <!-- 配置数据源 -->
+    <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <property name="driverClassName" value="com.mysql.jdbc.Driver"></property>
+        <property name="url" value="jdbc:mysql://localhost:3306/springdb"></property>
+        <property name="username" value="root"></property>
+        <property name="password" value="124607"></property>
+    </bean>
 
 </beans>
