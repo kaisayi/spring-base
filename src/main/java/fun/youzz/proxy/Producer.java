@@ -3,7 +3,7 @@ package fun.youzz.proxy;
 /**
  * 生产者
  */
-public class Producer implements IProducer {
+public class Producer {
 
     /**
      * 销售
