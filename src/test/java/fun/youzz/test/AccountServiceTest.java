@@ -5,6 +5,7 @@ import fun.youzz.service.IAccountService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
@@ -18,6 +19,7 @@ import java.util.List;
 public class AccountServiceTest {
 
     @Autowired
+    @Qualifier("proxyAccountService")
     private IAccountService as;
 
     @Test
@@ -29,6 +31,6 @@ public class AccountServiceTest {
 
     @Test
     public void testTransfer() {
-        as.transfer("aaa", "bbb", 100f);
+        as.transfer("bbb", "ccc", 100f);
     }
 }
