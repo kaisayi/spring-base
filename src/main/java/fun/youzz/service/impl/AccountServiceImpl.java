@@ -1,10 +1,12 @@
 package fun.youzz.service.impl;
 
 import fun.youzz.service.IAccountService;
+import org.springframework.stereotype.Service;
 
 /**
  * 账户的业务层
  */
+@Service("accountService")
 public class AccountServiceImpl implements IAccountService {
 
     @Override
